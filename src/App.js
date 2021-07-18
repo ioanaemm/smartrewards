@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import Amplify from "aws-amplify";
+import { AmplifyAuthenticator, AmplifySignOut } from "@aws-amplify/ui-react";
+import { API } from "aws-amplify";
+import awsconfig from "./aws-exports";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import * as queries from "./graphql/queries";
+
+Amplify.configure(awsconfig);
+
+export default class App extends React.Component {
+  state = {
+    rewards: [],
+  };
+  async componentDidMount() {
+    const allRewards = (await API.graphql({ query: queries.listRewards })).data.listRewards.items;
+    console.log("allRewards = ", allRewards);
+    this.setState({ rewards: allRewards });
+  }
+  render() {
+    return (
+      <AmplifyAuthenticator>
+        <div className="App">
+          <AmplifySignOut />
+          {this.state.rewards.map((reward) => (
+            <div className="reward-item" key={reward.id}>
+              {reward.title}
+            </div>
+          ))}
+        </div>
+      </AmplifyAuthenticator>
+    );
+  }
 }
-
-export default App;

@@ -1,0 +1,44 @@
+type Reward
+  @model
+  @auth(
+    rules: [
+      { allow: groups, groups: ["Managers"] }
+      { allow: groups, groups: ["Employees"], queries: [get, list], mutations: null }
+    ]
+  ) {
+  id: ID!
+  title: String!
+  description: String
+  price: Int
+  frequency: String
+  priceFrequency: String
+  location: String
+  photos: [String]
+  type: RewardType
+}
+
+enum RewardType {
+  SPORT
+  FOOD
+  FASHION
+  HEALTH
+  EDUCATION
+}
+
+type Employee
+  @model
+  @auth(rules: [{ allow: owner, ownerField: "id", identityClaim: "email" }, { allow: groups, groups: ["Managers"] }]) {
+  id: ID!
+  rewards: [EmployeeReward] @connection(keyName: "byEmployee", fields: ["id"])
+}
+
+type EmployeeReward
+  @model
+  @auth(rules: [{ allow: owner, ownerField: "id", identityClaim: "email" }, { allow: groups, groups: ["Managers"] }])
+  @key(name: "byEmployee", fields: ["employeeId", "createdAt"]) {
+  id: ID!
+  employeeId: ID!
+  rewardId: ID!
+  reward: Reward @connection(fields: ["rewardId"])
+  createdAt: AWSDateTime!
+}

@@ -1,0 +1,26 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-smartrewards-dev-145211-authRole",
+      "UnauthRoleArn": "arn:aws:iam::943931210434:role/amplify-smartrewards-dev-145211-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::943931210434:role/amplify-smartrewards-dev-145211-authRole",
+      "Region": "eu-west-2",
+      "DeploymentBucketName": "amplify-smartrewards-dev-145211-deployment",
+      "UnauthRoleName": "amplify-smartrewards-dev-145211-unauthRole",
+      "StackName": "amplify-smartrewards-dev-145211",
+      "StackId": "arn:aws:cloudformation:eu-west-2:943931210434:stack/amplify-smartrewards-dev-145211/0902c6d0-dccf-11eb-aa68-02c62a811676",
+      "AmplifyAppId": "dqegbku8iblr6"
+    },
+    "categories": {
+      "auth": {
+        "auth": {}
+      },
+      "function": {
+        "AdminQueries8121596b": {
+          "deploymentBucketName": "amplify-smartrewards-dev-145211-deployment",
+          "s3Key": "amplify-builds/AdminQueries8121596b-7a3052554f4c71326f76-build.zip"
+        }
+      }
+    }
+  }
+}
